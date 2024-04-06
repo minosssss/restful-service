@@ -1,0 +1,7 @@
+
+
+logging:
+  level:
+    org.springframework: info
+server:
+  port: 8088
