@@ -34,7 +34,7 @@ class UserServiceTest {
     @Test
     public void whenSaveUser_thenCorrectlyIncreaseUserCount() {
         long initialCount = userService.findAll().size();
-        userService.save(new User(null, "New User", new Date()));
+        userService.save(new User(null, "New User", new Date(), "1234" , "111111-12345678"));
         assertEquals(initialCount + 1, userService.findAll().size(), "User count did not increase after saving a new user");
     }
 

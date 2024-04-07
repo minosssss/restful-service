@@ -1,10 +1,13 @@
-package com.system.restfulservice.exception;
+package com.system.restfulservice.handler;
 
+import com.system.restfulservice.exception.UserNotFoundException;
+import com.system.restfulservice.response.ExceptionResponse;
+import com.system.restfulservice.response.ValidErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,8 +37,12 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-        ExceptionResponse exceptionResponse =
-                new ExceptionResponse(new Date(), "Validation Failed", ex.getBindingResult().toString());
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+        ValidErrorResponse validErrorResponse = ValidErrorResponse.builder()
+                .message("잘못된 요청입니다.")
+                .build();
+        for (FieldError fieldError : ex.getFieldErrors()) {
+            validErrorResponse.addValidation(fieldError.getField(), fieldError.getDefaultMessage());
+        }
+        return new ResponseEntity<>(validErrorResponse, HttpStatus.BAD_REQUEST);
     }
 }
