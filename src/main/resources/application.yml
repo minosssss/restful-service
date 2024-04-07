@@ -5,3 +5,7 @@ logging:
     org.springframework: info
 server:
   port: 8088
+
+spring:
+  messages:
+    basename: message
