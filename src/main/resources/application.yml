@@ -2,10 +2,22 @@
 
 logging:
   level:
-    org.springframework: info
+    org.springframework: debug
 server:
   port: 8088
 
 spring:
   messages:
     basename: message
+#  security:
+#    user:
+#      name: username
+#      password: password
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
