@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -38,8 +39,8 @@ public class UserControllerTest {
 
     @Test
     public void getAllUsers_whenGetMethod() throws Exception {
-        User user1 = new User(1L, "Test1", new Date(), "1234" , "111111-12345678");
-        User user2 = new User(2L, "Test2", new Date(), "1234" , "111111-12345678");
+        User user1 = new User(1L, "Test1", LocalDate.now(), "1234" , "111111-12345678");
+        User user2 = new User(2L, "Test2", LocalDate.now(), "1234" , "111111-12345678");
         List<User> userList = Arrays.asList(user1, user2);
 
         given(userService.findAll()).willReturn(userList);
@@ -52,7 +53,7 @@ public class UserControllerTest {
 
     @Test
     public void findUser_whenGetMethod() throws Exception {
-        User user = new User(1L, "Test", new Date(), "1234" , "111111-12345678");
+        User user = new User(1L, "Test", LocalDate.now(), "1234" , "111111-12345678");
 
         given(userService.findOne(anyLong())).willReturn(user);
 
@@ -65,8 +66,8 @@ public class UserControllerTest {
 
     @Test
     public void createUser_whenPostMethod() throws Exception {
-        User user = new User(null, "Test", new Date(), "1234" , "111111-12345678");
-        User savedUser = new User(1L, "Test", new Date(), "1234" , "111111-12345678");
+        User user = new User(null, "Test", LocalDate.now(), "1234" , "111111-12345678");
+        User savedUser = new User(1L, "Test", LocalDate.now(), "1234" , "111111-12345678");
 
         given(userService.save(any(User.class))).willReturn(savedUser);
 

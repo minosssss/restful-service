@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +35,7 @@ class UserServiceTest {
     @Test
     public void whenSaveUser_thenCorrectlyIncreaseUserCount() {
         long initialCount = userService.findAll().size();
-        userService.save(new User(null, "New User", new Date(), "1234" , "111111-12345678"));
+        userService.save(new User(null, "New User", LocalDate.now(), "1234" , "111111-12345678"));
         assertEquals(initialCount + 1, userService.findAll().size(), "User count did not increase after saving a new user");
     }
 
